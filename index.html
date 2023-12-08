@@ -1,87 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Гугл динозаврик</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f7f7f7;
-    }
-    #dino {
-      position: relative;
-      right: centr;
-      width: 50px;
-      height: 50px;
-      background-color:#333;
-    }
-    #jumpCount {
-      position: absolute;
-      top: 10px;
-      right: centr;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+    <style>
+        /* Стили для стартового меню */
+        .menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .menu button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+        }
+      #rec{
+      positio:absolute;
+      top: 20px;
+      left:50%;
       font-size: 24px;
-    }
-    #dino2 {
-      position:absolute;
-      top:325px;
-      right:200px;
-      width: 5px;
-      height: 5px;
-      background-color:Black;
-      }
-  </style>
+    </style>
 </head>
 <body>
-  <div id="dino"></div>
-  <div id="jumpCount">0</div>
-  <script>
-    const dino = document.getElementById('dino');
-    const jumpCountElement = document.getElementById('jumpCount');
-    let jumpCount = 0;
-    let isJumping = false;
-    let touchStartY;
-
-    document.addEventListener('touchstart', function(event) {
-      touchStartY = event.touches[0].clientY;
-    });
-
-    document.addEventListener('touchend', function(event) {
-      let touchEndY = event.changedTouches[0].clientY;
-      if (touchEndY == touchStartY && !isJumping) {
-        isJumping = true;
-        jumpCount++;
-        jumpCountElement.textContent =jumpCount;
-        jump();
-      }
-    });
-
-    function jump() {
-      let position = 0;
-      let upInterval = setInterval(function() {
-        if (position >= 150) {
-          clearInterval(upInterval);
-          let downInterval = setInterval(function() {
-            if (position === 0) {
-              clearInterval(downInterval);
-              isJumping = false;
-            } else {
-              position  -=60;
-            dino.style.bottom = position  + 'px';
-            dino.style.backgroundColor='Red';
-            }
-          }, 30);
-        } else {
-          position  +=60;
-          dino.style.bottom = position  +'px';
-          dino.style.backgroundColor='Green';
-        }
-      }, 30);
-    }
-  </script>
+    <div class="menu">
+        <h2>Start Menu</h2>
+        <button id="startButton">Play</button>
+    </div>
+<div id="rec">0</div>
+    <script>
+        // Добавляем обработчик события для кнопки "Start Game"
+       let rec=0;
+       const record = document.getElementById('rec');
+       var polrec=localStorage.getItem('bank');
+       record.textContent =polrec; document.getElementById('startButton').addEventListener('click', function() {
+            // Переходим к игре, открыв game.html в новом окне
+            window.open('game.html', '_self');
+        });
+    </script>
 </body>
 </html>

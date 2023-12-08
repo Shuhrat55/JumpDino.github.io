@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гугл динозаврик</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f7f7;
+    }
+    #dino {
+      position: relative;
+      right: centr;
+      width: px;
+      height: px;
+      background-color:;
+    }
+    #jumpCount {
+      position: absolute;
+      top: 10px;
+      right: centr;
+      font-size: 24px;
+    }
+    #dino2 {
+      position:absolute;
+      top:325px;
+      right:200px;
+      width: 5px;
+      height: 5px;
+      background-color:Black;
+      }
+  </style>
+</head>
+<body>
+  <div id="dino"><img src="mario.gif"></div>
+  <div id="jumpCount">0</div>
+  <script>
+    const dino = document.getElementById('dino');
+    const jumpCountElement = document.getElementById('jumpCount');
+    let jumpCount = 0;
+    let isJumping = false;
+    let touchStartY;
+
+    document.addEventListener('touchstart', function(event) {
+      touchStartY = event.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', function(event) {
+      let touchEndY = event.changedTouches[0].clientY;
+      if (touchEndY == touchStartY && !isJumping) {
+        isJumping = true;
+        jumpCount++;
+        jumpCountElement.textContent =jumpCount;
+        jump();
+        localStorage.setItem('bank',jumpCountElement.textContent);
+      }
+    });
+
+    function jump() {
+      let position = 0;
+      let upInterval = setInterval(function() {
+        if (position >= 150) {
+          clearInterval(upInterval);
+          let downInterval = setInterval(function()      {
+            if (position === 0) {
+              clearInterval(downInterval);
+              isJumping = false;
+            } else {
+              position  -=20;
+            dino.style.bottom = position  + 'px';
+       
+            }
+          }, 30);
+        } else {
+          position  +=20;
+          dino.style.bottom = position  +'px';
+        }
+      }, 30);
+    }
+  </script>
+</body>
+</html>
